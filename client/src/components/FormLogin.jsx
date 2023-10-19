@@ -33,19 +33,10 @@ export default function FormLogin({ setCookie }) {
       return;
     }
     setLoading(true);
-    const { code, response, error } = await login(data);
+    const { code, error } = await login(data);
     switch (code) {
       case 200:
         setCookie("user", data.user);
-        Swal.fire({
-          title: response.message,
-          icon: "success",
-          showCancelButton: false,
-          showCloseButton: false,
-          showDenyButton: false,
-          showConfirmButton: false,
-          timer: 1500,
-        });
         break;
 
       default:

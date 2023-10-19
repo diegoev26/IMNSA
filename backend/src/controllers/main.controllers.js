@@ -36,14 +36,23 @@ export const login = async (req, res) => {
     });
   }
 
-  return res
-    .status(200)
-    .send({
-      code: 200,
-      response: { message: "Usuario validado correctamente" },
-    });
+  return res.status(200).send({
+    code: 200,
+    response: { message: "Usuario validado correctamente" },
+  });
 };
 
 export const getData = async (req, res) => {
-  return res.status(200).send({ code: 200, response: { message: "OK" } });
+  try {
+    const data = await sequelize.query("select * from inmuebles;");
+    return res.status(200).send({
+      code: 200,
+      response: { message: "Listado de muebles OK", data: data[0] },
+    });
+  } catch (error) {
+    return res.status(400).send({
+      code: 400,
+      error: { message: "No se pudo obtener listado de inmuebles" },
+    });
+  }
 };

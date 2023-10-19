@@ -1,4 +1,6 @@
-import pool from "../database/connection";
+import sequelize from "../database/connection";
+import { compareSync } from "bcrypt";
+import config from "../config/config";
 
 export const login = async (req, res) => {
   const { data } = req.body;
@@ -16,8 +18,32 @@ export const login = async (req, res) => {
       error: { message: "Faltan datos necesarios para la consulta" },
     });
   }
-  console.log(data);
-  //const response = await pool.query("select * from inmuebles;");
-  //console.log(response);
+  try {
+    const compare = compareSync(data.password, config.user.passowrd);
+    if (!compare || data.user !== config.user.username) {
+      return res.status(400).send({
+        code: 400,
+        error: { message: "Usuario o contraseña inválidos", reference: data },
+      });
+    }
+  } catch (error) {
+    return res.status(400).send({
+      code: 400,
+      error: {
+        message: "Error validando datos -> " + error.message,
+        reference: data,
+      },
+    });
+  }
+
+  return res
+    .status(200)
+    .send({
+      code: 200,
+      response: { message: "Usuario validado correctamente" },
+    });
+};
+
+export const getData = async (req, res) => {
   return res.status(200).send({ code: 200, response: { message: "OK" } });
 };

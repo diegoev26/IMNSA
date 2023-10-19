@@ -1,11 +1,10 @@
 import { Sequelize } from "sequelize";
 import config from "../config/config";
 
-console.log(config.db.passowrd);
 const sequelize = new Sequelize(
   config.db.database,
   config.db.user,
-  config.db.passowrd,
+  config.db.passowrd.toString(),
   {
     host: config.db.host,
     port: config.db.port,
@@ -13,6 +12,5 @@ const sequelize = new Sequelize(
     logging: false,
   }
 );
-//console.log(sequelize);
 
 export default sequelize;

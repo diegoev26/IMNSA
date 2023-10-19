@@ -1,4 +1,4 @@
-import FormLogin from "../components/login/FormLogin";
+import FormLogin from "../components/FormLogin";
 
 export default function Main({ cookies, setCookie, removeCookie }) {
   return cookies.user === undefined ? (

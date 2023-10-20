@@ -48,7 +48,7 @@ export const getData = async (req, res) => {
     const data = await sequelize.query("select * from inmuebles;");
     return res.status(200).send({
       code: 200,
-      response: { message: "Listado de muebles OK", data: data[0] },
+      response: { message: "Listado de inmuebles OK", data: data[0] },
     });
   } catch (error) {
     return res.status(400).send({

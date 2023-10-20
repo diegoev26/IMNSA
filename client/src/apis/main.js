@@ -1,4 +1,4 @@
-const url = "https://imnsa-test.onrender.com/api";
+const url = process.env.REACT_APP_API_URL;
 
 export const login = async (jsonIn) => {
   const res = await fetch(url + "/login", {

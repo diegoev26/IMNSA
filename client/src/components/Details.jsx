@@ -112,13 +112,14 @@ export default function Details() {
     <Container className="d-flex justify-content-evenly mt-4">
       {data.map(({ id, nombre, descripcion }) => {
         return (
-          <Col key={id}>
-            <Card
-              xs={8}
-              md={3}
-              className="shadow-sm bg-light"
-              style={{ width: "18rem" }}
-            >
+          <Col
+            lg={{ span: 4 }}
+            md={{ span: 8 }}
+            sm={{ span: 10 }}
+            xs={{ span: 12 }}
+            key={id}
+          >
+            <Card className="shadow-sm bg-light" style={{ width: "18rem" }}>
               <Card.Header
                 className="bg-light text-center"
                 style={{ cursor: "pointer" }}

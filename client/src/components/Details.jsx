@@ -5,7 +5,7 @@ import Loader from "../pages/Loader";
 import { Card, Col, Container, Form, Spinner } from "react-bootstrap";
 import Button from "./Button";
 
-export default function Details() {
+export default function Details({ removeCookie }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState({ status: false, id: 0 });
@@ -106,93 +106,108 @@ export default function Details() {
     return <Loader />;
   }
 
-  return data.length < 1 ? (
-    <span>Sin inmuebles que mostrar</span>
-  ) : (
-    <Container className="d-flex justify-content-evenly mt-4">
-      {data.map(({ id, nombre, descripcion }) => {
-        return (
-          <Col
-            lg={{ span: 4 }}
-            md={{ span: 8 }}
-            sm={{ span: 10 }}
-            xs={{ span: 12 }}
-            key={id}
-          >
-            <Card className="shadow-sm bg-light" style={{ width: "18rem" }}>
-              <Card.Header
-                className="bg-light text-center"
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  setShow({ status: show.id === id ? !show.status : true, id });
-                }}
+  return (
+    <>
+      <Container fluid className="d-flex justify-content-end pt-1 pe-1">
+        <Button
+          size="sm"
+          onClick={() => removeCookie("user")}
+          text="Cerrar Sesion"
+          type="outline-dark"
+        />
+      </Container>
+      {data.length < 1 ? (
+        <span>Sin inmuebles que mostrar</span>
+      ) : (
+        <Container className="d-flex justify-content-evenly mt-4">
+          {data.map(({ id, nombre, descripcion }) => {
+            return (
+              <Col
+                lg={{ span: 4 }}
+                md={{ span: 8 }}
+                sm={{ span: 10 }}
+                xs={{ span: 12 }}
+                key={id}
               >
-                <b>{nombre}</b>
-              </Card.Header>
-              <Card.Body
-                className={show.status && id === show.id ? "" : "d-none"}
-              >
-                <Card.Img
-                  variant="top"
-                  src="https://definicion.de/wp-content/uploads/2010/12/casa.jpg"
-                />
-                <Card.Text>{descripcion}</Card.Text>
-              </Card.Body>
-              <Card.Footer
-                className={show.status && id === show.id ? "" : "d-none"}
-              >
-                <Form onSubmit={handleSubmit}>
-                  <Form.Label>Envianos tu consulta!</Form.Label>
-                  <Form.Control
-                    onChange={handleChange}
-                    value={mailing.name}
-                    placeholder="Nombre"
-                    name="name"
-                    type="text"
-                    className="mb-1"
-                  />
-                  <Form.Control
-                    onChange={handleChange}
-                    value={mailing.mail}
-                    placeholder="Mail"
-                    name="mail"
-                    type="email"
-                    className="mb-1"
-                  />
-                  <Form.Control
-                    onChange={handleChange}
-                    value={mailing.message}
-                    placeholder="Mensaje"
-                    name="message"
-                    as="textarea"
-                    rows={3}
-                    className="mb-2"
-                  />
-                  {formLoading ? (
-                    <Spinner />
-                  ) : (
-                    <Button
-                      size="sm"
-                      onClick={handleSubmit}
-                      text="Enviar"
-                      type="outline-secondary"
+                <Card className="shadow-sm bg-light" style={{ width: "18rem" }}>
+                  <Card.Header
+                    className="bg-light text-center"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setShow({
+                        status: show.id === id ? !show.status : true,
+                        id,
+                      });
+                    }}
+                  >
+                    <b>{nombre}</b>
+                  </Card.Header>
+                  <Card.Body
+                    className={show.status && id === show.id ? "" : "d-none"}
+                  >
+                    <Card.Img
+                      variant="top"
+                      src="https://definicion.de/wp-content/uploads/2010/12/casa.jpg"
                     />
-                  )}
-                </Form>
-                <span
-                  className={
-                    !err.status
-                      ? "d-none"
-                      : "d-flex pt-1 justify-content-end w-100 text-danger fs-6"
-                  }
-                >
-                  {err.message}
-                </span>
-              </Card.Footer>
-            </Card>
-          </Col>
-        );
-      })}
-    </Container>
+                    <Card.Text>{descripcion}</Card.Text>
+                  </Card.Body>
+                  <Card.Footer
+                    className={show.status && id === show.id ? "" : "d-none"}
+                  >
+                    <Form onSubmit={handleSubmit}>
+                      <Form.Label>Envianos tu consulta!</Form.Label>
+                      <Form.Control
+                        onChange={handleChange}
+                        value={mailing.name}
+                        placeholder="Nombre"
+                        name="name"
+                        type="text"
+                        className="mb-1"
+                      />
+                      <Form.Control
+                        onChange={handleChange}
+                        value={mailing.mail}
+                        placeholder="Mail"
+                        name="mail"
+                        type="email"
+                        className="mb-1"
+                      />
+                      <Form.Control
+                        onChange={handleChange}
+                        value={mailing.message}
+                        placeholder="Mensaje"
+                        name="message"
+                        as="textarea"
+                        rows={3}
+                        className="mb-2"
+                      />
+                      {formLoading ? (
+                        <Spinner />
+                      ) : (
+                        <Button
+                          size="sm"
+                          onClick={handleSubmit}
+                          text="Enviar"
+                          type="outline-secondary"
+                        />
+                      )}
+                    </Form>
+                    <span
+                      className={
+                        !err.status
+                          ? "d-none"
+                          : "d-flex pt-1 justify-content-end w-100 text-danger fs-6"
+                      }
+                    >
+                      {err.message}
+                    </span>
+                  </Card.Footer>
+                </Card>
+              </Col>
+            );
+          })}
+        </Container>
+      )}
+    </>
   );
 }

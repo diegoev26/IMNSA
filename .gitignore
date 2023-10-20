@@ -23,4 +23,5 @@
 **/tyarn-debug.log*
 **/yarn-error.log*
 
-
+**/.docx
+**/.txt

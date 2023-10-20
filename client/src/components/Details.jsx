@@ -113,7 +113,12 @@ export default function Details() {
       {data.map(({ id, nombre, descripcion }) => {
         return (
           <Col key={id}>
-            <Card className="shadow-sm bg-light" style={{ width: "18rem" }}>
+            <Card
+              xs={8}
+              md={3}
+              className="shadow-sm bg-light"
+              style={{ width: "18rem" }}
+            >
               <Card.Header
                 className="bg-light text-center"
                 style={{ cursor: "pointer" }}

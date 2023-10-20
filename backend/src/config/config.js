@@ -9,6 +9,8 @@ const {
   DB_PASSWORD,
   USERNAME,
   PASSWORD,
+  MAIL_USER,
+  MAIL_PASSWORD,
 } = process.env;
 
 export default {
@@ -24,5 +26,9 @@ export default {
   user: {
     username: USERNAME,
     passowrd: PASSWORD,
+  },
+  mail: {
+    user: MAIL_USER,
+    passowrd: MAIL_PASSWORD,
   },
 };

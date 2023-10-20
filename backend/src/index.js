@@ -6,6 +6,8 @@ import morgan from "morgan";
 import config from "./config/config";
 import routes from "./routes/main.routes";
 
+import "./config/mailer";
+
 app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use(cors());

@@ -1,4 +1,4 @@
-const url = "http://localhost:5000/api";
+const url = "https://imnsa-test.onrender.com/api";
 
 export const login = async (jsonIn) => {
   const res = await fetch(url + "/login", {
